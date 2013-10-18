@@ -1,9 +1,12 @@
 \name{tests}
+\alias{dbTestConnectionClone}
 \alias{dbTestTableInspection}
 \alias{tests}
 \title{DBI tests}
 \usage{
   dbTestTableInspection(con)
+
+  dbTestConnectionClone(con)
 }
 \arguments{
   \item{con}{A connection to a clean database with write

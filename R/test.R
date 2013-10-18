@@ -25,4 +25,21 @@ dbTestTableInspection <- function(con) {
   expect_equal(dbListTables(con), character())
 }
 
+#' @rdname tests
+#' @export
+dbTestConnectionClone <- function(con) {
+  con1 <- dbConnect(con)
+  con2 <- dbConnect(con)
+  
+  expect_true(dbIsValid(con1))
+  expect_true(dbIsValid(con2))
+  
+  dbDisconnect(con1)
+  expect_false(dbIsValid(con1))
+  expect_true(dbIsValid(con2))
 
+  dbDisconnect(con2)
+  expect_false(dbIsValid(con1))
+  expect_false(dbIsValid(con2))
+}
+  
