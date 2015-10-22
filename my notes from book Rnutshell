@@ -1,0 +1,39 @@
+#install the RODBC package
+install.packages("RODBC")
+library("RODBC")
+install.packages("nutshell")
+#install.packages("nutshell.bbdb")
+#install.packages("nutshell.audioscrobbler")
+
+library("nutshell.bbdb")
+library("nutshell.audioscrobbler")
+library("nutshell")
+#get the path of file
+#be ware of the file type
+#system.file("data","consumption.RDA", package="nutshell")
+#odbcConnect("consumption")
+system.file("extdata","bb.db", package="nutshell.bbdb")
+#open the channel
+bbdb = odbcConnect("bbdb")#the setting for the configuration
+#get the list of bbdb file
+odbcGetInfo(bbdb)#get information about ODB connection 
+#getting tables under bb.db 
+sqlTables(bbdb)
+sqlColumns(bbdb,"Allstar")
+#close a channel
+odbcClose(bbdb)
+
+#install DBI package
+install.packages("RSQLite")
+library(DBI)
+#create a dirve
+drv = dbDriver("SQLite")
+con =dbConnect(drv,dbname=system.file("extdata","bb.db", package="nutshell.bbdb"))
+#gtting DB information
+class(drv)
+class(con)
+dbListConnections(drv)
+#information for connection objects
+dbGetInfo(con)
+#close connection
+dbDisconnect(con)#unload diver dbUnloadDriver(drv)
